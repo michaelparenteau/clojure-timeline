@@ -83,4 +83,4 @@ $ ->
       dy: "0.3em"
     )
 
-  d3.csv "/clojure-timeline.csv", csvAccessor, csvCallback
+  d3.csv "./clojure-timeline.csv", csvAccessor, csvCallback
