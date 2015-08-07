@@ -9,10 +9,10 @@ $ ->
   margin =
     left: 80
     right: 20
-    top: 20
+    top: 80
     bottom: 20
 
-  svgWidth = 1000
+  svgWidth = 100000
   svgHeight = 1000
   width = svgWidth - margin.left - margin.right
   height = svgHeight - margin.top - margin.bottom
@@ -30,7 +30,7 @@ $ ->
 
   csvAccessor = (d) ->
     date: dateFormat.parse d.Date
-    event: d.Event
+    label: d.Event
     weight: d.Weight
 
   resetYearForAxis = (oldDate) ->
@@ -49,6 +49,15 @@ $ ->
       cx: (d) -> x(resetYearForAxis(d.date))
       cy: (d) -> y(d.date.getFullYear())
     )
+    chart.selectAll(".dot-label").data(data).enter().append("text").text((d) -> d.label).attr(
+      class: "dot-label"
+      x: (d) -> x(resetYearForAxis(d.date))
+      y: (d) -> y(d.date.getFullYear())
+      "text-anchor": "end"
+      dx: -20
+      dy: -20
+    )
+
     years = _.range(minYear, maxYear+1)
     chart.selectAll(".year").data(years).enter().append("line").attr(
       class: "year"
