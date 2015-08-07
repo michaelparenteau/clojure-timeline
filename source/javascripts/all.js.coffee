@@ -7,7 +7,7 @@ $ ->
   dateFormat = d3.time.format("%x")
 
   margin =
-    left: 20
+    left: 80
     right: 20
     top: 20
     bottom: 20
@@ -40,20 +40,35 @@ $ ->
 
   csvCallback = (error, data) ->
     console.log data
+    [minYear, maxYear] = d3.extent(data, (d) -> d.date.getFullYear())
     x.domain(d3.extent(data, (d) -> resetYearForAxis(d.date)))
-    y.domain(d3.extent(data, (d) -> d.date.getFullYear()))
+    y.domain([minYear, maxYear])
     chart.selectAll(".dot").data(data).enter().append("circle").attr(
       class: "dot"
       r:  (d) -> dotScale(d.weight)
       cx: (d) -> x(resetYearForAxis(d.date))
       cy: (d) -> y(d.date.getFullYear())
     )
-    chart.selectAll(".year").data(data).enter().append("line").attr(
+    years = _.range(minYear, maxYear+1)
+    chart.selectAll(".year").data(years).enter().append("line").attr(
       class: "year"
       x1: 0
       x2: width
-      y1: (d) -> y(d.date.getFullYear())
-      y2: (d) -> y(d.date.getFullYear())
+      y1: y
+      y2: y
+    )
+
+    chart.selectAll(".year-label")
+    .data(years)
+    .enter()
+    .append("text")
+    .text((d) -> d)
+    .attr(
+      class: "year-label"
+      "text-anchor": "end"
+      x: -10
+      y: y
+      dy: "0.3em"
     )
 
   d3.csv "/clojure-timeline.csv", csvAccessor, csvCallback
