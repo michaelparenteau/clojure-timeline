@@ -73,6 +73,8 @@ GEM
       rack-test (~> 0.6.2)
       thor (>= 0.15.2, < 2.0)
       tilt (~> 1.4.1, < 2.0)
+    middleman-gh-pages (0.0.3)
+      rake (> 0.9.3)
     middleman-jquery (2.1.1)
       thor (>= 0.14, < 2.0)
     middleman-livereload (3.3.4)
@@ -144,6 +146,7 @@ DEPENDENCIES
   breakpoint (~> 2.5.0)
   compass (~> 1.0.1)
   middleman (~> 3.3.6)
+  middleman-gh-pages (~> 0.0.3)
   middleman-jquery
   middleman-livereload (~> 3.3.4)
   middleman-syntax (~> 2.0.0)

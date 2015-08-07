@@ -9,6 +9,7 @@ gem "susy", "~> 2.1.3"
 gem "breakpoint", "~> 2.5.0"
 gem "middleman-syntax", "~> 2.0.0"
 gem "middleman-jquery"
+gem 'middleman-gh-pages', "~> 0.0.3"
 
 # Live-reloading plugin
 gem "middleman-livereload", "~> 3.3.4"
