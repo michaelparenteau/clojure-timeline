@@ -12,7 +12,7 @@ $ ->
     top: 80
     bottom: 20
 
-  svgWidth = 100000
+  svgWidth = 1000
   svgHeight = 1000
   width = svgWidth - margin.left - margin.right
   height = svgHeight - margin.top - margin.bottom
