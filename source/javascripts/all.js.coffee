@@ -12,7 +12,7 @@ $ ->
     top: 80
     bottom: 20
 
-  svgWidth = 1000
+  svgWidth = 2000
   svgHeight = 1000
   width = svgWidth - margin.left - margin.right
   height = svgHeight - margin.top - margin.bottom
@@ -21,7 +21,7 @@ $ ->
 
   y = d3.scale.linear().range([0, height])
 
-  dotScale = d3.scale.ordinal().domain(["", "Medium", "High"]).range([5, 10, 20])
+  dotScale = d3.scale.ordinal().domain(["", "Medium", "High"]).range([10, 25, 50])
 
   svg = d3.select(".chart").append("svg")
   svg.attr("width", svgWidth)
@@ -43,13 +43,16 @@ $ ->
     [minYear, maxYear] = d3.extent(data, (d) -> d.date.getFullYear())
     x.domain(d3.extent(data, (d) -> resetYearForAxis(d.date)))
     y.domain([minYear, maxYear])
-    chart.selectAll(".dot").data(data).enter().append("circle").attr(
+    events = chart.selectAll(".event").data(data).enter().append("g").attr(
+      class: "event"
+    )
+    events.append("circle").attr(
       class: "dot"
       r:  (d) -> dotScale(d.weight)
       cx: (d) -> x(resetYearForAxis(d.date))
       cy: (d) -> y(d.date.getFullYear())
     )
-    chart.selectAll(".dot-label").data(data).enter().append("text").text((d) -> d.label).attr(
+    events.append("text").text((d) -> d.label).attr(
       class: "dot-label"
       x: (d) -> x(resetYearForAxis(d.date))
       y: (d) -> y(d.date.getFullYear())
